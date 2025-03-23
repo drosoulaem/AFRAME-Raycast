@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Computer Centre 2</title>
+    <!-- The script that contains the library of A-Frame -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  </head>
+  <script>
+ /*   AFRAME.registerComponent('test2', {
+      init: function () {
+        console.log("hello I am ");
+        console.log("Object id:" + this.el.id);
+      }
+    });*/
+
+    AFRAME.registerComponent('play-sound', {
+      dependencies: ['raycaster'],
+      init: function () {
+        this.el.addEventListener('raycaster-intersected', function (evt) {
+          console.log(this.children[0]);
+          console.log(this.children[0].nodeName);
+          console.log(this.components);
+
+
+          if (this.children[0].nodeName == "A-SOUND") {
+            this.children[0].components.sound.playSound();
+          }
+        });
+      }
+    });
+
+    AFRAME.registerComponent('let-light', {
+      dependencies: ['raycaster'],
+      init: function () {
+        this.el.addEventListener('raycaster-intersected', function (evt) {
+          console.log("let there be light lol");
+
+          this.setAttribute('material', { emissive: "#ffec9e", emissiveIntensity: 1 });
+        });
+      }
+    });
+
+    AFRAME.registerComponent('let-no-light', {
+      dependencies: ['raycaster'],
+      init: function () {
+        this.el.addEventListener('raycaster-intersected-cleared', function (evt) {
+          console.log("no light no more");
+          this.setAttribute('material', { emissive: "black", emissiveIntensity: 0 });
+        });
+      }
+    });
+  </script>
+  <body>
+    <a-scene>
+      <a-assets>
+        <audio id="sound-engine" src="cat.mp3"></audio>
+        <audio id="sound-button" src="untitled.mp3"></audio>
+        <audio id="sound-button2" src="fbi.mp3"></audio>
+      </a-assets>
+
+      <a-entity test2 id="blop" geometry="primitive: sphere" material="color: blue" position="0 1 -5" animation="property: rotation; to: 360 360 180; dur:5000; loop:true;">
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="0 0 0" line=""></a-entity>
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="0 90 0" line=""></a-entity>
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="0 -90 0" line=""></a-entity>
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="0 180 0" line=""></a-entity>
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="-90 0 0" line=""></a-entity>
+        <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="90 0 0" line=""></a-entity>
+      </a-entity>
+
+      <a-box let-light let-no-light position="0 4 -5" raycaster-intersector play-sound class="collidable" material="color: #6b6b6b; emissive: black">
+        <a-sound src="#sound-engine"></a-sound>
+      </a-box>
+      <a-box let-light let-no-light position="9 2 -5" raycaster-intersector play-sound class="collidable" material="color: #6b6b6b; emissive: black">
+        <a-sound src="#sound-button2"></a-sound>
+      </a-box>
+      <a-box let-light let-no-light position="-7 1 -5" raycaster-intersector play-sound class="collidable" material="color:#6b6b6b; emissive: black">
+        <a-sound src="#sound-button"></a-sound>
+      </a-box>
+    <a-box  position="2 1 -5"animation="property: components.material.material.color; type: color; from: red; to: blue; dur: 500 loop:true" ;>
+      ></a-box>
+      
+      <a-sky color="#6CB3FF"></a-sky>
+    </a-scene>
+  </body>
+</html>
