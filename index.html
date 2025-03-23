@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Computer Centre 2</title>
-    <!-- The script that contains the library of A-Frame -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <title>RAYCAST</title>
+    <script src="aframe.min.js"></script>
   </head>
   <script>
  /*   AFRAME.registerComponent('test2', {
@@ -67,19 +66,25 @@
         <a-entity raycaster="objects: .collidable; showLine:true; lineColor:red; far:200; near:0.01;" position="0 0 0" rotation="90 0 0" line=""></a-entity>
       </a-entity>
 
-      <a-box let-light let-no-light position="0 4 -5" raycaster-intersector play-sound class="collidable" material="color: #6b6b6b; emissive: black">
+      <a-box let-light let-no-light position="0 4 -5" raycaster-intersector play-sound="" class="collidable" material="color: #6b6b6b; emissive: black">
         <a-sound src="#sound-engine"></a-sound>
       </a-box>
-      <a-box let-light let-no-light position="9 2 -5" raycaster-intersector play-sound class="collidable" material="color: #6b6b6b; emissive: black">
+      <a-box let-light let-no-light position="9 2 -5" raycaster-intersector play-sound="" class="collidable" material="color: #6b6b6b; emissive: black">
         <a-sound src="#sound-button2"></a-sound>
       </a-box>
-      <a-box let-light let-no-light position="-7 1 -5" raycaster-intersector play-sound class="collidable" material="color:#6b6b6b; emissive: black">
+      <a-box let-light let-no-light position="-7 1 -5" raycaster-intersector play-sound="" class="collidable" material="color:#6b6b6b; emissive: black">
         <a-sound src="#sound-button"></a-sound>
-      </a-box>
-    <a-box  position="2 1 -5"animation="property: components.material.material.color; type: color; from: red; to: blue; dur: 500 loop:true" ;>
-      ></a-box>
-      
-      <a-sky color="#6CB3FF"></a-sky>
+      </a-box>  
+
+      <!--Super important comment to self *ahem* BECAREFUL NOT TO FORGET THE MF*CKING CLASS COLLIDABLE AGAIN WHEN YOU ARE USING RAYCAST. YOU JUST SPENT SOME EXTRA HOUR SEARCHING WHY THE ANIMATION DID NOT WORK -->
+       <a-box class="collidable" position="2 1 -5" material="color: red;" animation="property: components.material.material.color; type: color; from: red; to: blue; startEvents:raycaster-intersected; dur: 500 "></a-box>
+       <a-box class="collidable" position="-2 1 -3" material="color: aqua;" animation="property: components.material.material.color; type: color; from: aqua; to: aquamarine; startEvents:raycaster-intersected; dur: 500 "></a-box>
+       <a-box class="collidable" position="-4 1 -6" material="color: palevioletred" animation="property: components.material.material.color; type: color; from: palevioletred; to: mediumseagreen; startEvents:raycaster-intersected; dur: 1200 "></a-box>
+       <a-box class="collidable" position="2 3 -7" material="color: indigo" animation="property: components.material.material.color; type: color; from: indigo; to: fuchsia; startEvents:raycaster-intersected; dur: 1200 "></a-box>
+
+       <!--test , below needs more animations to work properly, but in theory it works-->
+       <a-box class="collidable"  material="color: #6b6b6b" position="0 3 -6" raycaster-intersector  animation="property: components.material.material.emissive; startEvents:raycaster-intersected; type: color ; from: #000000 to: #ffebb5 ; dur: 500 " animation__t="property: components.material.material.emissive; startEvents:raycaster-intersected-cleared; type: color ; from: #ffebb5 to: #000000 ; dur: 100 "></a-box>
+       <a-sky color="#6CB3FF"></a-sky>
     </a-scene>
   </body>
 </html>
